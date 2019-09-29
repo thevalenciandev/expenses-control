@@ -55,20 +55,31 @@ class TransactionsPeriodSummary:
     class Type(Enum):
         OUT = 'Expense', Expense
         IN = 'Credit', Credit
+        ALL = 'Expense and Credit', None
 
     def __init__(self, period, transactions, summary_type):
         self.period = period
         self.summary_type = summary_type
         self.transactions_for_period = [tran for tran in transactions if self.period in tran.date]
-        self.rows = self.group_by_category(self.transactions_for_period)
+        self.rows = self.calculate_rows()
         self.totals = self.calculate_totals()
 
-    def group_by_category(self, transactions):
+    def calculate_rows(self):
+        if self.summary_type is not TransactionsPeriodSummary.Type.ALL:
+            return self.group_by_category(self.transactions_for_period, self.summary_type.value[1])
+        else:
+            res = self.group_by_category(self.transactions_for_period, Credit)
+            res.extend(self.group_by_category(self.transactions_for_period, Expense))
+            return res
+
+    def group_by_category(self, transactions, summary_type):
         """
+        :param transactions: a list of Transaction objects
+        :param summary_type: Credit or Expense
         :rtype: array of tuples (4, -57.45, Bill)
         """
-        hits_total_category_rows = []  # (4, -57.45, Lunch out)
-        for trans_type in self.summary_type.value[1]:
+        hits_total_category_rows = []
+        for trans_type in summary_type:
             transactions_for_type = [tran for tran in transactions if tran.type == trans_type]
             total_for_category = sum([tran.amount for tran in transactions_for_type])
             row = trans_type.value[0], len(transactions_for_type), round(total_for_category, 2)
