@@ -76,7 +76,7 @@ class TransactionsPeriodSummary:
         """
         :param transactions: a list of Transaction objects
         :param summary_type: Credit or Expense
-        :rtype: array of tuples (4, -57.45, Bill)
+        :rtype: array of tuples of the form (ExpenseOrCreditType, NoTransactions, Amount). Eg. (Bill, 4, -57.45)
         """
         hits_total_category_rows = []
         for trans_type in summary_type:

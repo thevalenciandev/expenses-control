@@ -12,6 +12,10 @@ class TransactionsSummaryComparator:
         self.title = self.from_summary.period + ' ---> ' + self.to_summary.period + ' (Negative values are good)'
 
     def compare_summary_rows(self):
+        """
+        Each row is a tuple of the form (NoTransactions, Amount, CreditOrExpenseType). Eg. (4, -57.45, Bill)
+        :return: an array of tuples of the form (CreditOrExpenseType, NoTransDiff, AmountDiff). Eg. (-1, -11.93, Bill)
+        """
         comparison = []
         for from_row, to_row in zip(self.from_summary.rows, self.to_summary.rows):
             if from_row[0] != to_row[0]:
