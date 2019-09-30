@@ -21,7 +21,7 @@ class TransactionsSummaryComparator:
             if from_row[0] != to_row[0]:
                 raise Exception(f'Cannot compare different transaction categories. {from_row[0]} <> {to_row[0]}')
             category = from_row[0]
-            no_transaction_diff = -(from_row[1] - to_row[1])
+            no_transaction_diff = to_row[1] - from_row[1]
             amount_diff = from_row[2] - to_row[2]
             comparison.append((category, no_transaction_diff, round(amount_diff, 2)))
         return comparison
