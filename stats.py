@@ -15,6 +15,7 @@ class YearlyStats:
         self.mean = mean(totals)
         self.median = median(totals)
         self.stdev = stdev(totals)
+        self.total = sum(self.month_year_totals.values())
 
     def filter_by(self, transaction_type):
         return lambda tran: tran.type == transaction_type
@@ -34,6 +35,9 @@ class YearlyStats:
         SummaryPrinter('{0}: {1}'.format(self.year, self.stats_crunched),
                        list(self.month_year_totals.keys()),
                        [list(self.month_year_totals.values())],
-                       footer='Mean: {0} - Median: {1} - St.dev.: {2}'.format(round(self.mean, 2),
-                                                                              round(self.median, 2),
-                                                                              round(self.stdev, 2))).print_summary()
+                       footer='Mean: {0} - Median: {1} - St.dev.: {2} - Total: {3}'
+                       .format(round(self.mean, 2),
+                               round(self.median, 2),
+                               round(self.stdev, 2),
+                               round(self.total, 2))) \
+            .print_summary()
