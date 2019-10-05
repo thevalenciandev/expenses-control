@@ -15,7 +15,7 @@ class YearlyStats:
         self.mean = mean(totals)
         self.median = median(totals)
         self.stdev = stdev(totals)
-        self.total = sum(self.month_year_totals.values())
+        self.total = sum(totals)
 
     def filter_by(self, transaction_type):
         return lambda tran: tran.type == transaction_type
