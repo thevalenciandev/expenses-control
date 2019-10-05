@@ -43,8 +43,15 @@ class Label(Enum):
 
     @staticmethod
     def from_description(desc):
+        matches = []
         for tran_type in Label:
             if Label.found(tran_type, desc):
-                return tran_type
-        else:
+                matches.append(tran_type)
+
+        if len(matches) == 0:
             return Label.UNKNOWN
+        elif len(matches) == 1:
+            return matches[0]
+        else:
+            raise Exception('Multiple labels matching description (review your label patterns). Labels: ' + str(
+                [match.value[0] for match in matches]) + '. Description: ' + desc)
