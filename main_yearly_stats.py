@@ -9,5 +9,5 @@ if __name__ == '__main__':
     YearlyStats('2019', all_time_transactions).print()
 
     # Stats per Label type
-    for credit in Label:
-        YearlyStats('2019', all_time_transactions, credit).print()
+    for label in Label:
+        YearlyStats('2019', all_time_transactions, label).print()
