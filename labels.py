@@ -2,7 +2,7 @@ import re
 from enum import Enum
 
 
-class Expense(Enum):
+class Label(Enum):
     # Left value: human readable description
     # Right value: (case un-sensitive) words to match in each transaction, separated by '|' if there are several of them
 
@@ -11,6 +11,7 @@ class Expense(Enum):
     BANK_FEES = 'Bank maintenance fees', 'MONTHLY FEE'
     BILLS = 'Bills (gas, electricity, water, TV license)', 'BILL1|BILL2|BILL3'
     BOOKS = 'Books', 'BOOKSHOP1|BOOKSHOP2'
+    CASH_BACK = 'Cashback', 'Cashback'
     CASH_WITHDRAWAL = 'Cash out', 'CASH WITHDRAWAL'
     CAR = 'Car (tax, fuel, servicing)', 'CAR1|CAR2|CAR3'
     CAR_INSURANCE = 'Car insurance', 'CARINSURANCE'
@@ -22,6 +23,7 @@ class Expense(Enum):
     HOUSE_GOODS = 'House goods (furniture, plants)', 'FURNSHOP1|FURNSHOP2'
     HOUSEKEEPING_COSTS = 'Housekeeping costs (food, cleaning)', 'GROCERY1|GROCERY2'
     INSURANCE = 'House Insurance', 'HOUSEINSURANCE'
+    INTEREST = 'Interest account', 'INTEREST PAID'
     INTERNET = 'Internet', 'INTERNETPROVIDER'
     HOLIDAYS = 'Holidays (flights, parking, insurance)', 'AIRLINE1|PARKING1'
     KIDS_EDUCATION = 'Kids education', 'NURSERY'
@@ -29,6 +31,7 @@ class Expense(Enum):
     LIFE_ASSURANCE = 'Life assurance', 'LIFEINSURANCE'
     LUNCH_OUT = 'Lunch out (any day of the week)', 'RESTAURANT3|RESTAURANT4'
     PHONE = 'Phone', 'PHONEPROVIDER'
+    SALARY = 'Salary', 'EMPLOYER'
     SUBSCRIPTIONS = 'Subscriptions (TV Streaming)', 'NETFLIX|Spotify'
     TAKE_OUT = 'Take-out', 'TAKEOUT'
     TRAVEL_COSTS = 'Travel costs (tube, train, Uber)', 'TRAVEL1|TRAVEL2'
@@ -40,8 +43,8 @@ class Expense(Enum):
 
     @staticmethod
     def from_description(desc):
-        for tran_type in Expense:
-            if Expense.found(tran_type, desc):
+        for tran_type in Label:
+            if Label.found(tran_type, desc):
                 return tran_type
         else:
-            return Expense.UNKNOWN
+            return Label.UNKNOWN

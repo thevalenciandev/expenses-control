@@ -13,8 +13,8 @@ class TransactionsSummaryComparator:
 
     def compare_summary_rows(self):
         """
-        Each row is a tuple of the form (NoTransactions, Amount, CreditOrExpenseType). Eg. (4, -57.45, Bill)
-        :return: an array of tuples of the form (CreditOrExpenseType, NoTransDiff, AmountDiff). Eg. (-1, -11.93, Bill)
+        Each row is a tuple of the form (NoTransactions, Amount, Label). Eg. (4, -57.45, Bill)
+        :return: an array of tuples of the form (Label, NoTransDiff, AmountDiff). Eg. (-1, -11.93, Bill)
         """
         comparison = []
         for from_row, to_row in zip(self.from_summary.rows, self.to_summary.rows):

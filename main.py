@@ -1,39 +1,53 @@
-from credit import Credit
-from expense import Expense
+from labels import Label
 from santander_transactions_parser import get_transactions_from_txt_export
-from stats import YearlyStats
 from transactions import TransactionsPeriodSummary
 from transactions_period_comparator import TransactionsSummaryComparator
 
 if __name__ == '__main__':
     all_time_transactions = get_transactions_from_txt_export('C:/Temp/Santander_statement.txt')
 
-    # Stats per expense/credit type
-    # YearlyStats('2019', all_time_transactions, Expense.HOUSEKEEPING_COSTS).print()
-
-    # for expense in Expense:
-    #     YearlyStats('2019', all_time_transactions, expense).print()
-
-    # Yearly PnL per month
-    YearlyStats('2019', all_time_transactions).print()
-
     # MONTHLY SUMMARIES
-    # june_expenses = TransactionsPeriodSummary('/06/2019', all_time_transactions, TransactionsPeriodSummary.Type.OUT)
-    # june_expenses.print()
-    # june_expenses.print_details_of(Expense.HOUSE_GOODS)
+    jan_transactions = TransactionsPeriodSummary('/01/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # jan_transactions.print()
 
-    # july_expenses = TransactionsPeriodSummary('/07/2019', all_time_transactions, TransactionsPeriodSummary.Type.OUT)
-    # july_expenses.print()
+    feb_transactions = TransactionsPeriodSummary('/02/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # feb_transactions.print()
 
-    august_expenses = TransactionsPeriodSummary('/08/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
-    # august_expenses.print()
+    mar_transactions = TransactionsPeriodSummary('/03/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # mar_transactions.print()
 
-    sept_expenses = TransactionsPeriodSummary('/09/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
-    sept_expenses.print()
-    sept_expenses.print_details_of(Expense.UNKNOWN)
-    sept_expenses.print_details_of(Credit.UNKNOWN)
+    apr_transactions = TransactionsPeriodSummary('/04/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # apr_transactions.print()
+
+    may_transactions = TransactionsPeriodSummary('/05/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # may_transactions.print()
+
+    june_transactions = TransactionsPeriodSummary('/06/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # june_transactions.print()
+
+    july_transactions = TransactionsPeriodSummary('/07/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # july_transactions.print()
+
+    august_transactions = TransactionsPeriodSummary('/08/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # august_transactions.print()
+
+    sept_transactions = TransactionsPeriodSummary('/09/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    # sept_transactions.print()
+
+    oct_transactions = TransactionsPeriodSummary('/10/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
+    oct_transactions.print()
+
+    # DETAILS OF A SPECIFIC CATEGORY/LABEL
+    for label in Label:
+        oct_transactions.print_details_of(label)
 
     # COMPARISONS
-    # TransactionsSummaryComparator(june_expenses, july_expenses).print()
-    # TransactionsSummaryComparator(july_expenses, august_expenses).print()
-    TransactionsSummaryComparator(august_expenses, sept_expenses).print()
+    # TransactionsSummaryComparator(jan_transactions, feb_transactions).print()
+    # TransactionsSummaryComparator(feb_transactions, mar_transactions).print()
+    # TransactionsSummaryComparator(mar_transactions, apr_transactions).print()
+    # TransactionsSummaryComparator(apr_transactions, may_transactions).print()
+    # TransactionsSummaryComparator(may_transactions, june_transactions).print()
+    # TransactionsSummaryComparator(june_transactions, july_transactions).print()
+    # TransactionsSummaryComparator(july_transactions, august_transactions).print()
+    # TransactionsSummaryComparator(august_transactions, sept_transactions).print()
+    TransactionsSummaryComparator(sept_transactions, oct_transactions).print()
