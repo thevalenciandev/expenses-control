@@ -3,8 +3,12 @@ from santander_transactions_parser import get_transactions_from_txt_export
 from transactions import TransactionsPeriodSummary
 from transactions_period_comparator import TransactionsSummaryComparator
 
+import sys
+
 if __name__ == '__main__':
-    all_time_transactions = get_transactions_from_txt_export('C:/Temp/Santander_statement.txt')
+    export_file = sys.argv[1]
+    print(f'Processing export file {export_file}...')
+    all_time_transactions = get_transactions_from_txt_export(export_file)
 
     # MONTHLY SUMMARIES
     jan_transactions = TransactionsPeriodSummary('/01/2019', all_time_transactions, TransactionsPeriodSummary.Type.ALL)
