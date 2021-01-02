@@ -18,7 +18,8 @@ class Transaction:
         return f"Date: {self.date}. Description: {self.description}. Amount: {self.amount}. Balance: {self.balance}. Type: {self.type.value}"
 
     def to_csv(self):
-        return f"{self.type.value[0]}, {self.date}, {self.description}, {self.amount}, {self.balance}"
+        # Some descriptions contain ',' or ';', so we use '|' instead
+        return f"{self.type.name}|{self.date}|{self.description}|{self.amount}|{self.balance}"
 
 
 class TransactionBuilder:
